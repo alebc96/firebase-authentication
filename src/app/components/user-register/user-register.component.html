@@ -1,0 +1,40 @@
+<div class="wrapper">
+    <div *ngIf="!loading" class="body">
+        <img class="logo" src="../../../assets/login.png" alt="login-img">
+        <h1>Register user</h1>
+        <form (ngSubmit)="singIn()" [formGroup]="registerUser">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" formControlName="email" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+                <span *ngIf = "registerUser.get('email')?.hasError('required') && registerUser.get('email')?.touched" class="text-danger errorLabel">
+                    The <strong>email</strong> is required
+                </span>
+                <span *ngIf = "registerUser.get('email')?.hasError('email') && registerUser.get('email')?.touched" class="text-danger errorLabel">
+                    Pleace introduce valid <strong>email</strong>
+                </span>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" formControlName = "password" id="floatingPassword" placeholder = "Password">
+                <label for = "floatingPassword">Password</label>
+                <span *ngIf = "registerUser.get('password')?.hasError('required') && registerUser.get('password')?.touched" class="text-danger errorLabel">
+                    The <strong>password</strong> is required
+                </span>
+                <span *ngIf = "registerUser.get('password')?.hasError('minlength') && registerUser.get('password')?.touched" class="text-danger errorLabel">
+                    The <strong>password</strong> must be at least 6 characters
+                </span>    
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" formControlName = "repeatPassword" id="floatingPasswordRepeted" placeholder="Repit password">
+                <label for="floatingPassword">Repeat password</label>
+                <span *ngIf = "registerUser.get('repeatPassword')?.errors && registerUser.get('repeatPassword')?.touched" class="text-danger errorLabel">
+                    The <strong>repeat password</strong> is required
+                </span>
+            </div>
+            <div class="d-grid gap-2 mb-3">
+                <button class="btn btn-primary btn-lg mt-3" type="submit" [disabled]="registerUser.invalid">Sign in</button>
+            </div>
+            <a class="mt-2 text-decoration-none" routerLink="/login">Back</a>
+        </form>
+    </div>
+    <app-spinner *ngIf="loading"></app-spinner>
+</div>
